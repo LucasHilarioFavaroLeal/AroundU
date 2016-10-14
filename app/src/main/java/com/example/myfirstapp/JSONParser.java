@@ -49,7 +49,6 @@ public class JSONParser {
             conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
             conn.setDoOutput(true);
             conn.getOutputStream().write(postDataBytes);
-
             is = conn.getInputStream();
         } catch (Exception e) {
             Log.e("Conn Error", e.toString());

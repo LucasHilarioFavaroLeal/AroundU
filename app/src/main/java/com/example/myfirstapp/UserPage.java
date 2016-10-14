@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -99,6 +100,10 @@ public class UserPage extends ListActivity
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Do something when a list item is clicked
-        database.deleteProfile( (int) id);
+        if(id != 0) database.deleteProfile( (int) id);
+        else {
+            Intent intent = new Intent(this, EditProfile.class);
+            startActivity(intent);
+        }
     }
 }

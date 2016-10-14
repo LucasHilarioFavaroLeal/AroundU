@@ -57,7 +57,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public Cursor getProfile(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery( "SELECT * FROM " + PROFILE_TABLE_NAME + " WHERE " +
-                PROFILE_COLUMN_ID + "=?", new String[] { Integer.toString(id) } );
+                PROFILE_COLUMN_ID + " = ? ", new String[] { Integer.toString(id) } );
         return res;
     }
 

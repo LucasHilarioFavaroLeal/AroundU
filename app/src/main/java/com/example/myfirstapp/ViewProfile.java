@@ -16,8 +16,8 @@ public class ViewProfile extends AppCompatActivity {
         setContentView(R.layout.activity_view_profile);
 
         Intent intent = getIntent();
-        String name = intent.getExtras().getString("PROFILE_NAME");
-        String text = intent.getExtras().getString("PROFILE_TEXT");
+        String name = intent.getExtras().getString("PROFILE_ID");
+        String text = intent.getExtras().getString("PROFILE_ID");
         TextView nameText = new TextView(this);
         nameText.setTextSize(40);
         nameText.setText(name);

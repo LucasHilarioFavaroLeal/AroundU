@@ -9,35 +9,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.myfirstapp.MainActivity">
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="A Round U"
-        android:layout_above="@+id/Home_UserPages"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="UserPages"
-        android:id="@+id/Home_UserPages"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="47dp"
+        android:layout_above="@+id/sign_in_button"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Map"
-        android:id="@+id/Home_Map"
-        android:layout_below="@+id/Home_UserPages"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        android:id="@+id/Home_EditProfile"
-        android:layout_below="@+id/Home_Map"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

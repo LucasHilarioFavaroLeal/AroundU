@@ -11,7 +11,6 @@ import android.widget.TextView;
 public class EditProfile extends AppCompatActivity {
 
     SQLiteHelper database;
-    SimpleCursorAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +61,11 @@ public class EditProfile extends AppCompatActivity {
         TextView Description = (TextView) findViewById(R.id.EditProfile_Text);
 
         Cursor Myself = database.getProfile(1);
-        if(Myself.getCount() != 0) database.updateProfile(1,Name.getText().toString(),Description.getText().toString());
-        else database.insertProfile(Name.getText().toString(),Description.getText().toString());
+        if(Myself.getCount() != 0) {
+            Myself.moveToFirst();
+            database.updateProfile(1,Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_GOOGLEID)),Name.getText().toString(),Description.getText().toString());
+        }
+        else database.insertProfile(Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_GOOGLEID)),Name.getText().toString(),Description.getText().toString());
         finish();
     }
 }

@@ -53,7 +53,8 @@ public class EditProfile extends AppCompatActivity {
     }
 
     public void cancelEdit() {
-            finish();
+        database.DROPTHEBASS();
+        finish();
     }
 
     public void saveEdit(){

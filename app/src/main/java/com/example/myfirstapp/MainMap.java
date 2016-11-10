@@ -56,8 +56,8 @@ public class MainMap extends AppCompatActivity
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> userList;
-    private static String url_map_refresh = "http://177.180.111.180:54321/android/db_read_area.php";
-    private static String url_register = "http://177.180.111.180:54321/android/db_register.php";
+    private static String url_map_refresh = "http://191.189.96.55:54321/android/db_read_area.php";
+    private static String url_register = "http://191.189.96.55:54321/android/db_register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -320,8 +320,15 @@ public class MainMap extends AppCompatActivity
 
 
     private void goToEditProfile() {
-        Intent intent = new Intent(this, EditProfile.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, EditProfile.class);
+        Intent intent = new Intent(this, UserIBSPage.class);
+        Cursor Myself = database.getProfile(1);
+        if(Myself.getCount() != 0) {
+            Myself.moveToFirst();
+            String googleid = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_GOOGLEID));
+            intent.putExtra("PROFILE_ID",googleid);
+            startActivity(intent);
+        }
     }
 
     /**
@@ -353,8 +360,8 @@ public class MainMap extends AppCompatActivity
 
             String MyGID;
             String MyName;
-            byte[] MyAva;
-            byte[] MyBann;
+            String MyAva;
+            String MyBann;
             String MyDesc;
             double MyPosX;
             double MyPosY;
@@ -372,8 +379,8 @@ public class MainMap extends AppCompatActivity
 
                 MyGID = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_GOOGLEID));
                 MyName = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_NAME));
-                MyAva = Myself.getBlob(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_AVATAR));
-                MyBann = Myself.getBlob(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_BANNER));
+                MyAva = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_AVATAR));
+                MyBann = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_BANNER));
                 MyDesc = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_DESCRIPTION));
             }
 

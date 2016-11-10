@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
+import android.util.Base64InputStream;
+import android.util.Base64OutputStream;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,7 +22,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.StringBufferInputStream;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+
+import static android.util.Base64.NO_WRAP;
 
 
 public class MainActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -42,20 +51,39 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.On
 
         if(Myself.getCount() != 0) {
 
-                Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.avatarex);
+                Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultavatar);
                 Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 120, 120, true);
                 ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
                 bMapScaled.compress(Bitmap.CompressFormat.PNG,0,BAOS);
 
-                database.setAvatar(Base64.encodeToString(BAOS.toByteArray(),Base64.DEFAULT));
+                byte[] encodedImg = BAOS.toByteArray();
+                String b64encoded = Base64.encodeToString(encodedImg,Base64.NO_WRAP);
+
+                //database.setAvatar(Base64.encodeToString(BAOS.toByteArray(),Base64.DEFAULT));
+               /* Log.e("Written bytes: ", Arrays.toString(encodedImg));
+                Log.e("Written b64: ", (b64encoded));*/
+
+                database.setAvatar(b64encoded);
+
+                /*Myself.moveToFirst();
+                String MyAva = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_AVATAR));
+                byte[] b64decoded = Base64.decode(MyAva,Base64.NO_WRAP);
+                Log.e("Read b64: ", MyAva);
+                Log.e("Read bytes: ", Arrays.toString(b64decoded));
+
+                Bitmap databaseimg = BitmapFactory.decodeByteArray(b64decoded,0,b64decoded.length);*/
+                //Log.e("Database ", databaseimg.getWidth()+" "+databaseimg.getHeight());
 
 
-                bMap = BitmapFactory.decodeResource(getResources(), R.drawable.bannerprof);
-                bMapScaled = Bitmap.createScaledBitmap(bMap, 120, 120, true);
+                bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultbanner);
+                bMapScaled = Bitmap.createScaledBitmap(bMap, 168, 150, true);
                 BAOS = new ByteArrayOutputStream();
                 bMapScaled.compress(Bitmap.CompressFormat.PNG,0,BAOS);
+                encodedImg = BAOS.toByteArray();
+                b64encoded = Base64.encodeToString(encodedImg,Base64.NO_WRAP);
 
-                database.setBanner(Base64.encodeToString(BAOS.toByteArray(),Base64.DEFAULT));
+                //database.setAvatar(Base64.encodeToString(BAOS.toByteArray(),Base64.DEFAULT));
+                database.setBanner(b64encoded);
 
                 goToMapsPage();
                 finish();

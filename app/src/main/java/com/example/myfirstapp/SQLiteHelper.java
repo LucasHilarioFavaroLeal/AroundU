@@ -84,7 +84,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public boolean setBanner(String banner) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(PROFILE_COLUMN_AVATAR, banner);
+        contentValues.put(PROFILE_COLUMN_BANNER, banner);
         db.update(PROFILE_TABLE_NAME, contentValues, PROFILE_COLUMN_ID + " = 1 ", new String[] {});
         return true;
     }

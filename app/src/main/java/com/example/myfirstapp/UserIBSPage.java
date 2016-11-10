@@ -50,7 +50,7 @@ public class UserIBSPage extends AppCompatActivity {
 
 
     JSONParser jParser = new JSONParser();
-    private static String url_read_user = "http://177.180.111.180:54321/android/db_read_profile.php";
+    private static String url_read_user = "http://191.189.96.55:54321/android/db_read_profile.php";
     // products JSONArray
     JSONArray users = null;
     JSONArray interests = null;
@@ -89,12 +89,12 @@ public class UserIBSPage extends AppCompatActivity {
         // Loading products in Background Thread
         new UserIBSPage.LoadUser().execute();
         ImageView image = (ImageView) findViewById(R.id.header_imageview);
-        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.bannerprof);
+        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultbanner);
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 168, 150, true);
         image.setImageBitmap(bMapScaled);
 
         ImageView image2 = (ImageView) findViewById(R.id.avatar_imageview);
-        bMap = BitmapFactory.decodeResource(getResources(), R.drawable.avatarex);
+        bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultavatar);
         bMapScaled = Bitmap.createScaledBitmap(bMap, 120, 120, true);
         image2.setImageBitmap(bMapScaled);
 
@@ -265,9 +265,9 @@ public class UserIBSPage extends AppCompatActivity {
                     // Storing each json item in variable
                     USER_NAME = json.getString(TAG_NAME);
                     USER_DESCRIPTION = json.getString(TAG_DESCRIPTION);
-                    if((json.getString(TAG_AVATAR) != null)) USER_AVATAR = Base64.decode(json.getString(TAG_AVATAR), Base64.DEFAULT);
+                    if((json.getString(TAG_AVATAR) != null)) USER_AVATAR = Base64.decode(json.getString(TAG_AVATAR), Base64.NO_WRAP);
                     else USER_AVATAR = null;
-                    if((json.getString(TAG_BANNER) != null)) USER_BANNER = Base64.decode(json.getString(TAG_BANNER), Base64.DEFAULT);
+                    if((json.getString(TAG_BANNER) != null)) USER_BANNER = Base64.decode(json.getString(TAG_BANNER), Base64.NO_WRAP);
                     else USER_BANNER = null;
                     interests = json.getJSONArray(TAG_INTERESTS);
 
@@ -316,18 +316,18 @@ public class UserIBSPage extends AppCompatActivity {
                     else {
 
                         if(USER_BANNER != null) {
-                            ByteArrayInputStream BAIS = new ByteArrayInputStream(USER_BANNER);
 
                             ImageView image = (ImageView) findViewById(R.id.header_imageview);
-                            Bitmap bMap = BitmapFactory.decodeStream(BAIS);
+                            Bitmap bMap = BitmapFactory.decodeByteArray(USER_BANNER,0,USER_BANNER.length);
                             image.setImageBitmap(bMap);
                         }
 
                         if(USER_AVATAR != null) {
-                            ByteArrayInputStream BAIS = new ByteArrayInputStream(USER_AVATAR);
+                            //ByteArrayInputStream BAIS = new ByteArrayInputStream(USER_AVATAR);
 
                             ImageView image2 = (ImageView) findViewById(R.id.avatar_imageview);
-                            Bitmap bMap = BitmapFactory.decodeStream(BAIS);
+                            Bitmap bMap = BitmapFactory.decodeByteArray(USER_AVATAR,0,USER_AVATAR.length);
+                            //Bitmap bMap = BitmapFactory.decodeStream(BAIS);
                             image2.setImageBitmap(bMap);
                         }
 

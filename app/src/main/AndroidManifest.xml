@@ -56,11 +56,12 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".UserIBSPage" />
-
         <activity
             android:name=".MainMap"
             android:label="Around U"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".InterestList" />
+        <activity android:name=".InterestEdit"></activity>
     </application>
 
 </manifest>

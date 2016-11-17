@@ -4,16 +4,21 @@ import android.app.ActionBar;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -47,6 +52,7 @@ public class UserIBSPage extends AppCompatActivity {
     private ProgressDialog pDialog;
 
     String user_gid;
+    String local_gid;
 
 
     JSONParser jParser = new JSONParser();
@@ -82,7 +88,7 @@ public class UserIBSPage extends AppCompatActivity {
         Intent intent = getIntent();
         user_gid = intent.getExtras().getString("PROFILE_ID");
 
-        //interestList = new ArrayList<HashMap<String,String> >();
+
         interestTitle = new ArrayList<String>();
         interestDescription = new ArrayList<String>();
 
@@ -122,11 +128,13 @@ public class UserIBSPage extends AppCompatActivity {
         // Create an empty adapter we will use to display the loaded data.
         // We pass null for the cursor, then update it in onLoadFinished()
 
+
+
         mAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,
                 interestTitle);
-        lv.setAdapter(mAdapter);
-        setListViewHeightBasedOnChildren(lv);
+        //lv.setAdapter(mAdapter);
+        //setListViewHeightBasedOnChildren(lv);
 
         TextView dynamicTextView = new TextView(this);
         dynamicTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -137,7 +145,26 @@ public class UserIBSPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v,int position, long id)
             {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserIBSPage.this);
 
+                final TextView et = new TextView(UserIBSPage.this);
+
+                et.setText(interestDescription.get((int) id));
+                et.setPadding(20,20,20,20);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(et);
+
+                // set dialog message
+                alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
             }
         });
 
@@ -218,6 +245,46 @@ public class UserIBSPage extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profmenu, menu);
+
+        database = new SQLiteHelper(this);
+
+        Cursor Myself = database.getProfile(1);
+        if(Myself.getCount() != 0) {
+            Myself.moveToFirst();
+            local_gid = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_GOOGLEID));
+
+            if(! local_gid.equalsIgnoreCase(user_gid)){
+                MenuItem headerEdit = menu.findItem(R.id.action_cart);
+                headerEdit.setVisible(false);
+            }
+
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+                goToEditProfile();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    private void goToEditProfile() {
+        Intent intent = new Intent(this, EditProfile.class);
+        startActivity(intent);
+    }
+
     class LoadUser extends AsyncTask<String, String, String> {
 
         String CustomMessage = "";
@@ -265,9 +332,9 @@ public class UserIBSPage extends AppCompatActivity {
                     // Storing each json item in variable
                     USER_NAME = json.getString(TAG_NAME);
                     USER_DESCRIPTION = json.getString(TAG_DESCRIPTION);
-                    if((json.getString(TAG_AVATAR) != null)) USER_AVATAR = Base64.decode(json.getString(TAG_AVATAR), Base64.NO_WRAP);
+                    if((json.getString(TAG_AVATAR) != null)) USER_AVATAR = Base64.decode(json.getString(TAG_AVATAR), Base64.DEFAULT);
                     else USER_AVATAR = null;
-                    if((json.getString(TAG_BANNER) != null)) USER_BANNER = Base64.decode(json.getString(TAG_BANNER), Base64.NO_WRAP);
+                    if((json.getString(TAG_BANNER) != null)) USER_BANNER = Base64.decode(json.getString(TAG_BANNER), Base64.DEFAULT);
                     else USER_BANNER = null;
                     interests = json.getJSONArray(TAG_INTERESTS);
 
@@ -286,6 +353,7 @@ public class UserIBSPage extends AppCompatActivity {
                         // adding HashList to ArrayList
                         //interestList.add(map);
                     }
+
                 } else {
                     String message = json.getString(TAG_MESSAGE);
                     CustomMessage = "A problem occured: " + message;
@@ -316,18 +384,18 @@ public class UserIBSPage extends AppCompatActivity {
                     else {
 
                         if(USER_BANNER != null) {
+                            ByteArrayInputStream BAIS = new ByteArrayInputStream(USER_BANNER);
 
                             ImageView image = (ImageView) findViewById(R.id.header_imageview);
-                            Bitmap bMap = BitmapFactory.decodeByteArray(USER_BANNER,0,USER_BANNER.length);
+                            Bitmap bMap = BitmapFactory.decodeStream(BAIS);
                             image.setImageBitmap(bMap);
                         }
 
                         if(USER_AVATAR != null) {
-                            //ByteArrayInputStream BAIS = new ByteArrayInputStream(USER_AVATAR);
+                            ByteArrayInputStream BAIS = new ByteArrayInputStream(USER_AVATAR);
 
                             ImageView image2 = (ImageView) findViewById(R.id.avatar_imageview);
-                            Bitmap bMap = BitmapFactory.decodeByteArray(USER_AVATAR,0,USER_AVATAR.length);
-                            //Bitmap bMap = BitmapFactory.decodeStream(BAIS);
+                            Bitmap bMap = BitmapFactory.decodeStream(BAIS);
                             image2.setImageBitmap(bMap);
                         }
 
@@ -337,6 +405,10 @@ public class UserIBSPage extends AppCompatActivity {
 
                         final TextView name = (TextView) findViewById(R.id.profile_name);
                         name.setText(USER_NAME);
+
+                        final ListView lv = (ListView)findViewById(R.id.listo);
+                        lv.setAdapter(mAdapter);
+                        setListViewHeightBasedOnChildren(lv);
 
 
                     }

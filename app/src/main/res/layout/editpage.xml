@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="561dp"
+            android:id="@+id/guideline5"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="44dp"
+            app:layout_constraintGuide_percent="0.10705596" />
+
+        <TextView
+            android:text="@string/placeh_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:text="@string/placeh_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
+
+        <EditText
+            android:layout_height="100dp"
+            android:inputType="textPersonName"
+            android:text="@string/placeh"
+            android:ems="10"
+            android:id="@+id/edit_about"
+            android:layout_width="300dp"
+            style="@style/Widget.AppCompat.EditText"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/placeh"
+            android:ems="10"
+            android:id="@+id/edit_username"
+            android:layout_width="300dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <Button
+            android:text="@string/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_cancel"
+            android:layout_marginStart="72dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/avatar_im" />
+
+        <Button
+            android:text="@string/conclude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_conclude"
+            android:layout_marginEnd="72dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="72dp"
+            app:layout_constraintTop_toBottomOf="@+id/avatar_im"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:text="Edição de Profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp" />
+
+        <TextView
+            android:text="@string/ava"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/edit_about"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5" />
+
+        <ImageView
+            android:id="@+id/avatar_im"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/placeh"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintLeft_toLeftOf="@+id/edit_about"
+            app:srcCompat="@drawable/defaultavatar"
+            android:layout_marginTop="24dp" />
+
+        <Button
+            android:text="@string/placeh_imbu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pickbutts"
+            android:layout_marginTop="56dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:layout_marginStart="64dp"
+            app:layout_constraintLeft_toRightOf="@+id/avatar_im"
+            android:layout_marginLeft="64dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
+

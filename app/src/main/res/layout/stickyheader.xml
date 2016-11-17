@@ -1,120 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_user_ibspage"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/header_imageview"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:contentDescription="Gorila"
-        />
-
-    <LinearLayout
-        android:id="@+id/informations_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/header_imageview"
-        android:gravity="center"
-        android:paddingTop="32dp"
-        android:paddingBottom="32dp">
-
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estrella"
-            android:textStyle="bold"
-            android:textSize="17dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:textColor="#FF707070"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="#FF909090" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/tabs_container"
-        android:layout_height="48dp"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/informations_container">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="#ffd694" >
-
-            <Button
-                android:id="@+id/about_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="About" />
-
-            <TextView
-                android:id="@+id/leseparator"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
-                android:gravity="center"
-                android:text=" | " />
-
-            <Button
-                android:id="@+id/interesses_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Interesses"/>
-
-            <TextView
-                android:id="@+id/leseparator2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
-                android:gravity="center"
-                android:text=" | " />
-
-            <Button
-                android:id="@+id/notinteresses_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Contact" />
-
-        </LinearLayout>
-
-    </FrameLayout>
+        android:contentDescription="@string/placeh"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_imageview"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="1.0" />
 
     <!-- cheat code: negative margin -->
     <ImageView
         android:id="@+id/avatar_imageview"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/informations_container"
-        android:layout_marginBottom="-16dp" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/informations_container"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription="@string/placeh" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline3"
+        app:layout_constraintGuide_begin="249dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="249dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <FrameLayout
+        android:id="@+id/tabs_container"
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/informations_container"
+        android:layout_marginTop="250dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/informations_container"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="#94cfff">
+
+            <Button
+                android:id="@+id/about_button"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="@string/prof_but3"
+                android:layout_width="100dp"
+                app:layout_constraintRight_toLeftOf="@+id/interesses_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline4"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline6"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="392dp"
+                app:layout_constraintGuide_percent="0.9537713" />
+
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline4"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="23dp"
+                app:layout_constraintGuide_percent="0.05596107" />
+
+            <Button
+                android:id="@+id/interesses_button"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="@string/prof_but2"
+                android:layout_width="120dp"
+                style="@style/Widget.AppCompat.Button"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline4"
+                app:layout_constraintRight_toLeftOf="@+id/guideline6"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintBottom_toTopOf="@+id/guideline" />
+
+            <Button
+                android:id="@+id/notinteresses_button"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="@string/prof_but1"
+                android:layout_width="100dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toRightOf="@+id/interesses_button"
+                android:layout_marginLeft="16dp"
+                style="@style/Widget.AppCompat.Button"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintRight_toLeftOf="@+id/guideline6" />
+
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline"
+                app:layout_constraintGuide_begin="48dp"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteY="48dp"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline2"
+                app:layout_constraintGuide_begin="0dp"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </FrameLayout>
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline7"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:id="@+id/informations_container"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        app:layout_constraintLeft_toLeftOf="@+id/header_imageview"
+        app:layout_constraintRight_toRightOf="@+id/header_imageview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        android:layout_width="0dp">
+
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeh_name"
+            android:textStyle="bold"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
     <!--android:src="@drawable/avatar"-->
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
 

@@ -1,13 +1,19 @@
 package com.example.myfirstapp;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +23,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
@@ -28,6 +37,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,6 +47,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,19 +67,25 @@ public class MainMap extends AppCompatActivity
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> userList;
+    ArrayList<HashMap<String, String>> eventList;
     private static String url_map_refresh = "http://191.189.96.55:54321/android/db_read_area.php";
     private static String url_register = "http://191.189.96.55:54321/android/db_register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_USERS = "user";
+    private static final String TAG_EVENTS = "event";
     private static final String TAG_PID = "pid";
+    private static final String TAG_USERID = "user_id";
+    private static final String TAG_DESCRIPTION = "description";
+    private static final String TAG_AVATAR = "avatar";
     private static final String TAG_GOOGLEID = "googleid";
     private static final String TAG_POSITIONX = "positionX";
     private static final String TAG_POSITIONY = "positionY";
 
     // products JSONArray
     JSONArray users = null;
+    JSONArray events = null;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -91,6 +108,7 @@ public class MainMap extends AppCompatActivity
 
         // Hashmap for ListView
         userList = new ArrayList<HashMap<String,String> >();
+        eventList = new ArrayList<HashMap<String,String> >();
 
         // Loading products in Background Thread
         new MainMap.LoadAllUsers().execute();
@@ -119,6 +137,7 @@ public class MainMap extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -155,10 +174,11 @@ public class MainMap extends AppCompatActivity
             setSupportActionBar(toolbar);
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+            /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.setDrawerListener(toggle);
-            toggle.syncState();
+            toggle.syncState();*/
+            drawer.openDrawer(Gravity.LEFT);
 
             return true;
         }
@@ -181,6 +201,8 @@ public class MainMap extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
+            Intent intent = new Intent(this, InterestList.class);
+            startActivity(intent);
             /*Intent intent = new Intent(this, InsertEvent.class);
             startActivity(intent);*/
 
@@ -259,10 +281,23 @@ public class MainMap extends AppCompatActivity
         });
 
         myPosition = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-22.0078723,-47.8963472))
-                .title("Você está aqui!"));
+                .position(new LatLng(-22.0078723,-47.8963472)));
 
         myPosition.setTag(-1);
+
+        Cursor Myself = database.getProfile(1);
+
+        if(Myself.getCount() != 0){
+            String MyAva;
+            Myself.moveToFirst();
+            MyAva = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_AVATAR));
+
+            ByteArrayInputStream BAIS = new ByteArrayInputStream( Base64.decode(MyAva, Base64.DEFAULT) );
+
+            Bitmap bMap = BitmapFactory.decodeStream(BAIS);
+            bMap = Bitmap.createScaledBitmap(bMap, 50, 50, true);
+            myPosition.setIcon(BitmapDescriptorFactory.fromBitmap(bMap));
+        }
 
         CircleOptions circleOptions = new CircleOptions()
                 .center(new LatLng(-22.0078723,-47.8963472))
@@ -312,10 +347,38 @@ public class MainMap extends AppCompatActivity
 
 
     private void goToViewProfile(int Id) {
-        Intent intent = new Intent(this, UserIBSPage.class);
-        String googleid = userList.get(Id).get(TAG_GOOGLEID);
-        intent.putExtra("PROFILE_ID",googleid);
-        startActivity(intent);
+
+        if(Id >= userList.size() ) {
+
+            Id -= userList.size();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            final TextView et = new TextView(this);
+
+            et.setText(eventList.get(Id).get(TAG_DESCRIPTION));
+            et.setPadding(20,20,20,20);
+
+            // set prompts.xml to alertdialog builder
+            alertDialogBuilder.setView(et);
+
+            // set dialog message
+            alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+        }
+
+        else {
+            Intent intent = new Intent(this, UserIBSPage.class);
+            String googleid = userList.get(Id).get(TAG_GOOGLEID);
+            intent.putExtra("PROFILE_ID", googleid);
+            startActivity(intent);
+        }
     }
 
 
@@ -390,9 +453,13 @@ public class MainMap extends AppCompatActivity
 
             Map<String,Object> params = new LinkedHashMap<>();
 
-            params.put("googleid",MyGID);
-            params.put("positionX",MyPosX);
-            params.put("positionY",MyPosY);
+            params.put("googleid", MyGID);
+            params.put("name", MyName);
+            params.put("avatar", MyAva);
+            params.put("banner", MyBann);
+            params.put("description", MyDesc);
+            params.put("positionX", MyPosX);
+            params.put("positionY", MyPosY);
 
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_map_refresh, params);
@@ -409,7 +476,6 @@ public class MainMap extends AppCompatActivity
                     // Getting Array of Products
                     users = json.getJSONArray(TAG_USERS);
 
-
                     userList.clear();
 
                     // looping through All Products
@@ -419,6 +485,7 @@ public class MainMap extends AppCompatActivity
                         // Storing each json item in variable
                         String id = c.getString(TAG_PID);
                         String googleid = c.getString(TAG_GOOGLEID);
+                        String avatar = c.getString(TAG_AVATAR);
                         String positionX = c.getString(TAG_POSITIONX);
                         String positionY = c.getString(TAG_POSITIONY);
 
@@ -428,12 +495,43 @@ public class MainMap extends AppCompatActivity
                         // adding each child node to HashMap key => value
                         map.put(TAG_PID, id);
                         map.put(TAG_GOOGLEID, googleid);
+                        map.put(TAG_AVATAR, avatar);
                         map.put(TAG_POSITIONX, positionX);
                         map.put(TAG_POSITIONY, positionY);
 
                         // adding HashList to ArrayList
                         userList.add(map);
                     }
+
+                    // Getting Array of Products
+                    events = json.getJSONArray(TAG_EVENTS);
+
+                    eventList.clear();
+
+                    //Toast.makeText(getApplicationContext(), "Events: " + events.length(), Toast.LENGTH_SHORT).show();
+                    // looping through All Products
+                    for (int i = 0; i < events.length(); i++) {
+                        JSONObject c = events.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String googleid = c.getString(TAG_USERID);
+                        String description = c.getString(TAG_DESCRIPTION);
+                        String positionX = c.getString(TAG_POSITIONX);
+                        String positionY = c.getString(TAG_POSITIONY);
+
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<>();
+
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_USERID, googleid);
+                        map.put(TAG_DESCRIPTION, description);
+                        map.put(TAG_POSITIONX, positionX);
+                        map.put(TAG_POSITIONY, positionY);
+
+                        // adding HashList to ArrayList
+                        eventList.add(map);
+                    }
+
                 } else {
                     String message = json.getString(TAG_MESSAGE);
                     if(message.compareToIgnoreCase("register") == 0) {
@@ -495,11 +593,40 @@ public class MainMap extends AppCompatActivity
                         }
 
                         markerList.clear();
+                        int currentMarker = 0;
                         for(int j = 0; j < userList.size(); j++) {
-                            markerList.add(mMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(Double.parseDouble(userList.get(j).get(TAG_POSITIONX)), Double.parseDouble(userList.get(j).get(TAG_POSITIONY))))));
-                            markerList.get(j).setTag(j);
+
+                            MarkerOptions mo = new MarkerOptions();
+
+                            mo.position(new LatLng(Double.parseDouble(userList.get(j).get(TAG_POSITIONX)), Double.parseDouble(userList.get(j).get(TAG_POSITIONY))));
+
+                            if((userList.get(j).get(TAG_AVATAR) == null) || (userList.get(j).get(TAG_AVATAR).compareToIgnoreCase("null") == 0))
+                                mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultmapicon));
+                            else {
+                                ByteArrayInputStream BAIS = new ByteArrayInputStream( Base64.decode(userList.get(j).get(TAG_AVATAR), Base64.DEFAULT) );
+
+                                Bitmap bMap = BitmapFactory.decodeStream(BAIS);
+                                bMap = Bitmap.createScaledBitmap(bMap, 50, 50, true);
+
+                                mo.icon(BitmapDescriptorFactory.fromBitmap(bMap));
+
+
+                            }
+
+                            markerList.add(mMap.addMarker(mo));
+                            markerList.get(currentMarker).setTag(currentMarker);
+                            currentMarker += 1;
                         }
+
+                        for(int j = 0; j < eventList.size(); j++) {
+                            markerList.add(mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(Double.parseDouble(eventList.get(j).get(TAG_POSITIONX)), Double.parseDouble(eventList.get(j).get(TAG_POSITIONY))))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent))    ));
+                            markerList.get(currentMarker).setTag(currentMarker);
+                            currentMarker += 1;
+                        }
+
+                        //Toast.makeText(getApplicationContext(), "Users: " + userList.size() + " Events: " + eventList.size(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

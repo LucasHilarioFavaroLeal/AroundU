@@ -8,4 +8,16 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main_map">MainMap</string>
+    <string name="prof_but1">Contatos</string>
+    <string name="prof_but2">Interesses</string>
+    <string name="prof_but3">About</string>
+    <string name="placeh"></string>
+    <string name="placeh_name">Username</string>
+    <string name="placeh_about">Sobre</string>
+    <string name="cancel">Cancelar</string>
+    <string name="conclude">Concluir</string>
+    <string name="ava">Escolha seu avatar:</string>
+    <string name="placeh_imbu">Trocar</string>
+    <string name="action_edit">Edit</string>
+
 </resources>

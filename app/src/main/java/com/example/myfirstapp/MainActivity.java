@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.On
 
         if(Myself.getCount() != 0) {
 
-                Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultavatar);
+                /*Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultavatar);
                 Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 120, 120, true);
                 ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
                 bMapScaled.compress(Bitmap.CompressFormat.PNG,0,BAOS);
@@ -60,10 +60,10 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.On
                 String b64encoded = Base64.encodeToString(encodedImg,Base64.NO_WRAP);
 
                 //database.setAvatar(Base64.encodeToString(BAOS.toByteArray(),Base64.DEFAULT));
-               /* Log.e("Written bytes: ", Arrays.toString(encodedImg));
-                Log.e("Written b64: ", (b64encoded));*/
+                Log.e("Written bytes: ", Arrays.toString(encodedImg));
+                Log.e("Written b64: ", (b64encoded));
 
-                database.setAvatar(b64encoded);
+                database.setAvatar(b64encoded);*/
 
                 /*Myself.moveToFirst();
                 String MyAva = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_AVATAR));
@@ -75,7 +75,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.On
                 //Log.e("Database ", databaseimg.getWidth()+" "+databaseimg.getHeight());
 
 
-                bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultbanner);
+               /* bMap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultbanner);
                 bMapScaled = Bitmap.createScaledBitmap(bMap, 168, 150, true);
                 BAOS = new ByteArrayOutputStream();
                 bMapScaled.compress(Bitmap.CompressFormat.PNG,0,BAOS);
@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.On
                 b64encoded = Base64.encodeToString(encodedImg,Base64.NO_WRAP);
 
                 //database.setAvatar(Base64.encodeToString(BAOS.toByteArray(),Base64.DEFAULT));
-                database.setBanner(b64encoded);
+                database.setBanner(b64encoded);*/
 
                 goToMapsPage();
                 finish();

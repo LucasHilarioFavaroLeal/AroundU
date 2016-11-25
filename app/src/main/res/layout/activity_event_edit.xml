@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_event_edit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.myfirstapp.EventEdit">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="459dp"
+            android:id="@+id/EVENT_EDIT_GUIDELINE"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="37dp"
+            app:layout_constraintGuide_percent="0.10511363" />
+
+        <TextView
+            android:text="Categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EVENT_EDIT_TEXT_CATEGORIA"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_HEADER"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/EVENT_EDIT_GUIDELINE" />
+
+        <TextView
+            android:text="Descrição"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EVENT_EDIT_TEXT_DESCRIPTION"
+            app:layout_constraintLeft_toLeftOf="@+id/EVENT_EDIT_GUIDELINE"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_IMAGE_ICON"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:layout_height="100dp"
+            android:inputType="textPersonName"
+            android:text="@string/placeh"
+            android:ems="10"
+            android:id="@+id/EVENT_EDIT_DESCRIPTION"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_TEXT_DESCRIPTION"
+            android:layout_marginTop="8dp"
+            android:layout_width="260dp"
+            app:layout_constraintLeft_toLeftOf="@+id/EVENT_EDIT_GUIDELINE"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp" />
+
+        <Button
+            android:text="@string/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EVENT_EDIT_BUTTON_CANCEL"
+            android:layout_marginStart="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_IMAGE" />
+
+        <Button
+            android:text="@string/conclude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EVENT_EDIT_BUTTON_OK"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="32dp"
+            app:layout_constraintTop_toTopOf="@+id/EVENT_EDIT_BUTTON_CANCEL" />
+
+        <TextView
+            android:text="Editor de Evento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EVENT_EDIT_HEADER"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="103dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="103dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/defaultevent"
+            android:id="@+id/EVENT_EDIT_IMAGE_ICON"
+            app:layout_constraintRight_toLeftOf="@+id/EVENT_EDIT_CATEGORIA"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_TEXT_CATEGORIA" />
+
+        <TextView
+            android:text="CATEGORIA A"
+            android:id="@+id/EVENT_EDIT_CATEGORIA"
+            android:layout_height="22dp"
+            android:layout_width="112dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="@+id/EVENT_EDIT_IMAGE_ICON"
+            app:layout_constraintBottom_toBottomOf="@+id/EVENT_EDIT_IMAGE_ICON"
+            android:layout_marginStart="120dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="120dp" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_menu_manage"
+            android:id="@+id/EVENT_EDIT_CATEGORY_BUTTON"
+            app:layout_constraintTop_toTopOf="@+id/EVENT_EDIT_IMAGE_ICON"
+            android:layout_marginStart="24dp"
+            app:layout_constraintLeft_toRightOf="@+id/EVENT_EDIT_CATEGORIA"
+            android:layout_marginLeft="24dp" />
+
+        <TextView
+            android:text="Imagem Anexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EVENT_EDIT_TEXT_ANEXO"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_DESCRIPTION"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="@+id/EVENT_EDIT_GUIDELINE" />
+
+        <ImageButton
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_menu_camera"
+            android:id="@+id/EVENT_EDIT_IMAGE"
+            app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_TEXT_ANEXO"
+            app:layout_constraintLeft_toLeftOf="@+id/EVENT_EDIT_GUIDELINE"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_width="260dp" />
+
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="459dp"
+            android:id="@+id/EVENT_EDIT_GUIDELINE2"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="320dp"
+            app:layout_constraintGuide_percent="0.90909094" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

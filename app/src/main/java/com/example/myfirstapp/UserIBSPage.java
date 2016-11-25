@@ -185,14 +185,6 @@ public class UserIBSPage extends AppCompatActivity {
                 abouttv.setVisibility(View.VISIBLE);
             }
         });
-
-        Button buttonThree = (Button) findViewById(R.id.notinteresses_button);
-        buttonThree.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         // Prepare the loader.  Either re-connect with an existing one,
         // or start a new one.
         //getLoaderManager().initLoader(0, null, this);

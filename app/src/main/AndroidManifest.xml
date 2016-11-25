@@ -61,7 +61,10 @@
             android:label="Around U"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".InterestList" />
-        <activity android:name=".InterestEdit"></activity>
+        <activity android:name=".InterestEdit" />
+        <activity android:name=".EventList" />
+        <activity android:name=".EventEdit" />
+        <activity android:name=".NewEventMap"></activity>
     </application>
 
 </manifest>

@@ -15,8 +15,10 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/stickyheaderrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="384dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="81dp"
+            tools:layout_editor_absoluteX="0dp">
 
             <ImageView
                 android:id="@+id/header_imageview"
@@ -85,16 +87,18 @@
                         android:layout_height="48dp"
                         android:gravity="center"
                         android:text="@string/prof_but3"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         app:layout_constraintRight_toLeftOf="@+id/interesses_button"
                         style="@style/Widget.AppCompat.Button"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
                         app:layout_constraintTop_toTopOf="@+id/guideline2"
                         app:layout_constraintBottom_toTopOf="@+id/guideline"
                         app:layout_constraintLeft_toLeftOf="@+id/guideline4"
-                        app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginLeft="32dp"
+                        app:layout_constraintHorizontal_bias="0.0" />
 
                     <android.support.constraint.Guideline
                         android:layout_width="wrap_content"
@@ -102,7 +106,7 @@
                         android:id="@+id/guideline6"
                         android:orientation="vertical"
                         tools:layout_editor_absoluteY="0dp"
-                        tools:layout_editor_absoluteX="392dp"
+                        tools:layout_editor_absoluteX="366dp"
                         app:layout_constraintGuide_percent="0.9537713" />
 
                     <android.support.constraint.Guideline
@@ -111,7 +115,7 @@
                         android:id="@+id/guideline4"
                         android:orientation="vertical"
                         tools:layout_editor_absoluteY="0dp"
-                        tools:layout_editor_absoluteX="23dp"
+                        tools:layout_editor_absoluteX="21dp"
                         app:layout_constraintGuide_percent="0.05596107" />
 
                     <Button
@@ -119,28 +123,17 @@
                         android:layout_height="48dp"
                         android:gravity="center"
                         android:text="@string/prof_but2"
-                        android:layout_width="120dp"
+                        android:layout_width="wrap_content"
                         style="@style/Widget.AppCompat.Button"
                         app:layout_constraintLeft_toLeftOf="@+id/guideline4"
                         app:layout_constraintRight_toLeftOf="@+id/guideline6"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        app:layout_constraintTop_toTopOf="@+id/guideline2"
-                        app:layout_constraintBottom_toTopOf="@+id/guideline" />
-
-                    <Button
-                        android:id="@+id/notinteresses_button"
-                        android:layout_height="48dp"
-                        android:gravity="center"
-                        android:text="@string/prof_but1"
-                        android:layout_width="100dp"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintLeft_toRightOf="@+id/interesses_button"
-                        android:layout_marginLeft="16dp"
-                        style="@style/Widget.AppCompat.Button"
                         app:layout_constraintTop_toTopOf="@+id/guideline2"
                         app:layout_constraintBottom_toTopOf="@+id/guideline"
-                        app:layout_constraintRight_toLeftOf="@+id/guideline6" />
+                        app:layout_constraintHorizontal_bias="1.0"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginLeft="32dp" />
 
                     <android.support.constraint.Guideline
                         android:layout_width="wrap_content"
@@ -206,7 +199,7 @@
         <TextView
             android:id="@+id/about_textview"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="347dp"
             tools:layout_conversion_absoluteX="32dp"
             tools:layout_conversion_absoluteY="32dp"
             tools:layout_conversion_absoluteWidth="347dp"
@@ -215,14 +208,12 @@
             app:layout_constraintLeft_toLeftOf="@+id/stickyheaderrl"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
-            />
+            android:layout_marginTop="16dp" />
 
         <ListView
             android:id="@+id/listo"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="384dp"
             tools:layout_conversion_absoluteX="32dp"
             tools:layout_conversion_absoluteY="32dp"
             tools:layout_conversion_absoluteWidth="347dp"
@@ -230,9 +221,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stickyheaderrl"
             tools:ignore="NestedScrolling"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            />
+            android:layout_marginTop="16dp" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

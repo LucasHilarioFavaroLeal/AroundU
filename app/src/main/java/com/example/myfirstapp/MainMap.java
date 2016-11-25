@@ -24,7 +24,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +84,8 @@ public class MainMap extends AppCompatActivity
     private static final String TAG_GOOGLEID = "googleid";
     private static final String TAG_POSITIONX = "positionX";
     private static final String TAG_POSITIONY = "positionY";
+    private static final String TAG_CATEGORY = "category";
+    private static final String TAG_IMAGE = "image";
 
     // products JSONArray
     JSONArray users = null;
@@ -197,19 +201,16 @@ public class MainMap extends AppCompatActivity
             Intent intent = new Intent(this, EditProfile.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(this, UserPage.class);
+            Intent intent = new Intent(this, InterestList.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
-            Intent intent = new Intent(this, InterestList.class);
+            Intent intent = new Intent(this, EventList.class);
+            intent.putExtra("YOUR_POSITIONX",myPosition.getPosition().latitude);
+            intent.putExtra("YOUR_POSITIONY",myPosition.getPosition().longitude);
             startActivity(intent);
-            /*Intent intent = new Intent(this, InsertEvent.class);
-            startActivity(intent);*/
 
         } else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(this, UserIBSPage.class);
-            intent.putExtra("PROFILE_ID"," ");
-            startActivity(intent);
             /*Intent intent = new Intent(this, AboutPage.class);
             startActivity(intent);*/
 
@@ -353,13 +354,35 @@ public class MainMap extends AppCompatActivity
             Id -= userList.size();
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
+            LinearLayout myLayout = new LinearLayout(this);
+            myLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+            myLayout.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout.LayoutParams a = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0);
+            a.weight = 1;
+
             final TextView et = new TextView(this);
 
             et.setText(eventList.get(Id).get(TAG_DESCRIPTION));
             et.setPadding(20,20,20,20);
+            et.setLayoutParams(a);
+
+            myLayout.addView(et);
+
+            if(!eventList.get(Id).get(TAG_IMAGE).equalsIgnoreCase("NULL")){
+                final ImageView im = new ImageView(this);
+
+                ByteArrayInputStream BAIS = new ByteArrayInputStream( Base64.decode(eventList.get(Id).get(TAG_IMAGE), Base64.DEFAULT));
+
+                Bitmap bMap = BitmapFactory.decodeStream(BAIS);
+
+                im.setImageBitmap(bMap);
+                im.setLayoutParams(a);
+                myLayout.addView(im);
+            }
 
             // set prompts.xml to alertdialog builder
-            alertDialogBuilder.setView(et);
+            alertDialogBuilder.setView(myLayout);
 
             // set dialog message
             alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -518,6 +541,8 @@ public class MainMap extends AppCompatActivity
                         String description = c.getString(TAG_DESCRIPTION);
                         String positionX = c.getString(TAG_POSITIONX);
                         String positionY = c.getString(TAG_POSITIONY);
+                        String category = c.getString(TAG_CATEGORY);
+                        String image = c.getString(TAG_IMAGE);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<>();
@@ -527,6 +552,8 @@ public class MainMap extends AppCompatActivity
                         map.put(TAG_DESCRIPTION, description);
                         map.put(TAG_POSITIONX, positionX);
                         map.put(TAG_POSITIONY, positionY);
+                        map.put(TAG_CATEGORY, category);
+                        map.put(TAG_IMAGE, image);
 
                         // adding HashList to ArrayList
                         eventList.add(map);
@@ -606,10 +633,9 @@ public class MainMap extends AppCompatActivity
                                 ByteArrayInputStream BAIS = new ByteArrayInputStream( Base64.decode(userList.get(j).get(TAG_AVATAR), Base64.DEFAULT) );
 
                                 Bitmap bMap = BitmapFactory.decodeStream(BAIS);
-                                bMap = Bitmap.createScaledBitmap(bMap, 50, 50, true);
+                                Bitmap mapIcon = Bitmap.createScaledBitmap(bMap, 50, 50, true);
 
-                                mo.icon(BitmapDescriptorFactory.fromBitmap(bMap));
-
+                                mo.icon(BitmapDescriptorFactory.fromBitmap(mapIcon));
 
                             }
 
@@ -619,9 +645,36 @@ public class MainMap extends AppCompatActivity
                         }
 
                         for(int j = 0; j < eventList.size(); j++) {
-                            markerList.add(mMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(Double.parseDouble(eventList.get(j).get(TAG_POSITIONX)), Double.parseDouble(eventList.get(j).get(TAG_POSITIONY))))
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent))    ));
+                            MarkerOptions mo = new MarkerOptions().position(new LatLng(Double.parseDouble(eventList.get(j).get(TAG_POSITIONX)), Double.parseDouble(eventList.get(j).get(TAG_POSITIONY))))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+
+                            switch(Integer.parseInt(eventList.get(j).get(TAG_CATEGORY))) {
+
+                                case 1:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+                                case 2:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+                                case 3:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+                                case 4:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+                                case 5:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+                                case 6:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+                                case 7:
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    break;
+
+                            }
+
+                            markerList.add(mMap.addMarker(mo));
                             markerList.get(currentMarker).setTag(currentMarker);
                             currentMarker += 1;
                         }

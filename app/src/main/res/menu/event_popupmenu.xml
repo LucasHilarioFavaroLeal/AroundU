@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <!--Limite de  caracteres: "ABCDEFGHIJ"-->
+        <item
+            android:id="@+id/CATEGORY_A"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY A" />
+        <item
+            android:id="@+id/CATEGORY_B"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY B" />
+        <item
+            android:id="@+id/CATEGORY_C"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY C" />
+        <item
+            android:id="@+id/CATEGORY_D"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY D" />
+        <item
+            android:id="@+id/CATEGORY_E"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY E" />
+        <item
+            android:id="@+id/CATEGORY_F"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY F" />
+        <item
+            android:id="@+id/CATEGORY_G"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY G" />
+        <item
+            android:id="@+id/CATEGORY_H"
+            android:icon="@drawable/defaultevent"
+            android:title="CATEGORY H" />
+
+</menu>

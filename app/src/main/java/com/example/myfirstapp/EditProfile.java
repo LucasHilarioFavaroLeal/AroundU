@@ -26,6 +26,7 @@ public class EditProfile extends AppCompatActivity {
     SQLiteHelper database;
     private static final int PICK_IMAGE = 100;
     private ImageView imageView;
+    Uri loadedimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,20 +88,13 @@ public class EditProfile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            Uri imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                saveImage(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Uri loadedimage = data.getData();
+            imageView.setImageURI(loadedimage);
         }
     }
 
     public void saveImage(Bitmap bMap)
     {
-        BitmapFactory.decodeResource(getResources(),R.drawable.defaultavatar);
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 120, 120, true);
         ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
         bMapScaled.compress(Bitmap.CompressFormat.PNG,0,BAOS);
@@ -115,6 +109,13 @@ public class EditProfile extends AppCompatActivity {
     public void saveEdit(){
         TextView Name = (TextView) findViewById(R.id.edit_username);
         TextView Description = (TextView) findViewById(R.id.edit_about);
+
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), loadedimage);
+            saveImage(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Cursor Myself = database.getProfile(1);
         if(Myself.getCount() != 0) {

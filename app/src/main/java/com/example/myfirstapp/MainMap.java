@@ -70,8 +70,8 @@ public class MainMap extends AppCompatActivity
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> userList;
     ArrayList<HashMap<String, String>> eventList;
-    private static String url_map_refresh = "http://191.189.96.55:54321/android/db_read_area.php";
-    private static String url_register = "http://191.189.96.55:54321/android/db_register.php";
+    private static String url_map_refresh = "http://143.107.232.254:9070/html/db_read_area.php";
+    private static String url_register = "http://143.107.232.254:9070/html/db_register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -256,8 +256,15 @@ public class MainMap extends AppCompatActivity
     @Override
     public void onConnected(Bundle connectionHint) {
 
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        try {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
+        }
+
+        catch (SecurityException e){
+            errorMessage("Around U precisa de sua localização via GPS para o devido funcionamento, por favor cheque suas conexões.");
+        }
+
     }
 
     @Override
@@ -327,22 +334,32 @@ public class MainMap extends AppCompatActivity
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mMap.moveCamera(CameraUpdateFactory.zoomTo( (float) (16 + (ZoomLevel*0.2)) ));
-                Toast.makeText(getApplicationContext(), "Zoom adjusted to " + ZoomLevel + " out of " + seekBar.getMax(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Zoom adjusted to " + ZoomLevel + " out of " + seekBar.getMax(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void updateMap() {
 
-        // Loading products in Background Thread
-        new MainMap.LoadAllUsers().execute();
 
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        LatLng test = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        //LatLng test = new LatLng(-22.0078723,-47.8963472);
-        radarCircle.setCenter(test);
-        myPosition.setPosition(test);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+        try{
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            LatLng test = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            //LatLng test = new LatLng(-22.0078723,-47.8963472);
+            radarCircle.setCenter(test);
+            myPosition.setPosition(test);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+            // Loading products in Background Thread
+            new MainMap.LoadAllUsers().execute();
+        }
+
+        catch (SecurityException e){
+            errorMessage("Around U precisa de sua localização via GPS para o devido funcionamento, por favor cheque suas conexões.");
+        }
+
+        catch (Exception e){
+            errorMessage("Around U precisa de conexão à internet para seu devido funcionamento assim como sua posição de GPS, por favor cheque suas conexões.");
+        }
 
     }
 
@@ -417,6 +434,30 @@ public class MainMap extends AppCompatActivity
         }
     }
 
+    void errorMessage(String s){
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        final TextView et = new TextView(this);
+
+        et.setText(s);
+        et.setPadding(20,20,20,20);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(et);
+
+        // set dialog message
+        alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+
+    }
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
@@ -651,25 +692,25 @@ public class MainMap extends AppCompatActivity
                             switch(Integer.parseInt(eventList.get(j).get(TAG_CATEGORY))) {
 
                                 case 1:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.dangerevent));
                                     break;
                                 case 2:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.saleevent));
                                     break;
                                 case 3:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.infoevent));
                                     break;
                                 case 4:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.requestevent));
                                     break;
                                 case 5:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.messageevent));
                                     break;
                                 case 6:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.cultureevent));
                                     break;
                                 case 7:
-                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultevent));
+                                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.animalevent));
                                     break;
 
                             }

@@ -56,7 +56,7 @@ public class UserIBSPage extends AppCompatActivity {
 
 
     JSONParser jParser = new JSONParser();
-    private static String url_read_user = "http://191.189.96.55:54321/android/db_read_profile.php";
+    private static String url_read_user = "http://143.107.232.254:9070/html/db_read_profile.php";
     // products JSONArray
     JSONArray users = null;
     JSONArray interests = null;

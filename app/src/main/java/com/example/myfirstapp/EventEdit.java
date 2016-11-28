@@ -52,7 +52,7 @@ public class EventEdit extends AppCompatActivity {
 
     JSONParser jParser = new JSONParser();
 
-    private static String url_update_event = "http://191.189.96.55:54321/android/db_update_event.php";
+    private static String url_update_event = "http://143.107.232.254:9070/html/db_update_event.php";
     private static final String TAG_SUCCESS = "success";
 
     int event_categoryID = 0;
@@ -98,36 +98,36 @@ public class EventEdit extends AppCompatActivity {
         switch(event_categoryID) {
 
             case 0:
-                categoryName.setText("CATEGORY A");
+                categoryName.setText("AVISO");
                 categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
                 break;
             case 1:
-                categoryName.setText("CATEGORY B");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("PERIGO");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.dangerevent));
                 break;
             case 2:
-                categoryName.setText("CATEGORY C");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("OFERTA");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.saleevent));
                 break;
             case 3:
-                categoryName.setText("CATEGORY D");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("INFO");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.infoevent));
                 break;
             case 4:
-                categoryName.setText("CATEGORY E");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("PEDIDO");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.requestevent));
                 break;
             case 5:
-                categoryName.setText("CATEGORY F");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("MENSAGEM");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.messageevent));
                 break;
             case 6:
-                categoryName.setText("CATEGORY G");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("CULTURA");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.cultureevent));
                 break;
             case 7:
-                categoryName.setText("CATEGORY H");
-                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.defaultevent));
+                categoryName.setText("ANIMAIS");
+                categoryIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.animalevent));
                 break;
 
         }

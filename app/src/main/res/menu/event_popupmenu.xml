@@ -4,34 +4,34 @@
         <item
             android:id="@+id/CATEGORY_A"
             android:icon="@drawable/defaultevent"
-            android:title="CATEGORY A" />
+            android:title="AVISO" />
         <item
             android:id="@+id/CATEGORY_B"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY B" />
+            android:icon="@drawable/dangerevent"
+            android:title="PERIGO" />
         <item
             android:id="@+id/CATEGORY_C"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY C" />
+            android:icon="@drawable/saleevent"
+            android:title="OFERTA" />
         <item
             android:id="@+id/CATEGORY_D"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY D" />
+            android:icon="@drawable/infoevent"
+            android:title="INFO" />
         <item
             android:id="@+id/CATEGORY_E"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY E" />
+            android:icon="@drawable/requestevent"
+            android:title="PEDIDO" />
         <item
             android:id="@+id/CATEGORY_F"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY F" />
+            android:icon="@drawable/messageevent"
+            android:title="MENSAGEM" />
         <item
             android:id="@+id/CATEGORY_G"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY G" />
+            android:icon="@drawable/cultureevent"
+            android:title="CULTURA" />
         <item
             android:id="@+id/CATEGORY_H"
-            android:icon="@drawable/defaultevent"
-            android:title="CATEGORY H" />
+            android:icon="@drawable/animalevent"
+            android:title="ANIMAIS" />
 
 </menu>

@@ -103,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@+id/EVENT_EDIT_TEXT_CATEGORIA" />
 
         <TextView
-            android:text="CATEGORIA A"
+            android:text="AVISO"
             android:id="@+id/EVENT_EDIT_CATEGORIA"
             android:layout_height="22dp"
             android:layout_width="112dp"

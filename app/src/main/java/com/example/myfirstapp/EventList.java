@@ -36,8 +36,8 @@ public class EventList extends AppCompatActivity {
     ArrayAdapter mAdapter;
 
     JSONParser jParser = new JSONParser();
-    private static String url_read_events = "http://191.189.96.55:54321/android/db_read_events.php";
-    private static String url_delete_event = "http://191.189.96.55:54321/android/db_delete_event.php";
+    private static String url_read_events = "http://143.107.232.254:9070/html/db_read_events.php";
+    private static String url_delete_event = "http://143.107.232.254:9070/html/db_delete_event.php";
     // products JSONArray
     JSONArray events = null;
 

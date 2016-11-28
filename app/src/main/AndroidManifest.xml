@@ -17,8 +17,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        >
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,13 +42,19 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.MainActivity" />
         </activity>
-        <activity android:name=".EditProfile" />
-        <activity android:name=".ViewProfile" />
+        <activity android:name=".EditProfile"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ViewProfile"
+            android:screenOrientation="portrait"
+            />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -55,16 +63,30 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".UserIBSPage" />
+        <activity android:name=".UserIBSPage"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".MainMap"
             android:label="Around U"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InterestList" />
-        <activity android:name=".InterestEdit" />
-        <activity android:name=".EventList" />
-        <activity android:name=".EventEdit" />
-        <activity android:name=".NewEventMap"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".InterestList"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".InterestEdit"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".EventList"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".EventEdit"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".NewEventMap"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

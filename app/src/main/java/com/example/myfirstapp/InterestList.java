@@ -40,8 +40,8 @@ public class InterestList extends AppCompatActivity {
     ArrayAdapter mAdapter;
 
     JSONParser jParser = new JSONParser();
-    private static String url_read_user = "http://143.107.232.254:9070/html/db_read_profile.php";
-    private static String url_delete_interest = "http://143.107.232.254:9070/html/db_delete_interest.php";
+    private static String url_read_user = "http://lasdpc.icmc.usp.br:54321/android/db_read_profile.php";
+    private static String url_delete_interest = "http://lasdpc.icmc.usp.br:54321/android/db_delete_interest.php";
     // products JSONArray
     JSONArray interests = null;
 

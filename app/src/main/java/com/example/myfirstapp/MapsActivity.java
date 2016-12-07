@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> userList;
-    private static String url_database = "http://143.107.232.254:9070/html/db_read_all.php";
+    private static String url_database = "http://lasdpc.icmc.usp.br:54321/android/db_read_all.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_USERS = "user";

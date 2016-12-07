@@ -52,7 +52,7 @@ public class EventEdit extends AppCompatActivity {
 
     JSONParser jParser = new JSONParser();
 
-    private static String url_update_event = "http://143.107.232.254:9070/html/db_update_event.php";
+    private static String url_update_event = "http://lasdpc.icmc.usp.br:54321/android/db_update_event.php";
     private static final String TAG_SUCCESS = "success";
 
     int event_categoryID = 0;

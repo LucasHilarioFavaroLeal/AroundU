@@ -50,6 +50,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,8 +71,8 @@ public class MainMap extends AppCompatActivity
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> userList;
     ArrayList<HashMap<String, String>> eventList;
-    private static String url_map_refresh = "http://143.107.232.254:9070/html/db_read_area.php";
-    private static String url_register = "http://143.107.232.254:9070/html/db_register.php";
+    private static String url_map_refresh = "http://lasdpc.icmc.usp.br:54321/android/db_read_area.php";
+    private static String url_register = "http://lasdpc.icmc.usp.br:54321/android/db_register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -299,6 +300,17 @@ public class MainMap extends AppCompatActivity
             String MyAva;
             Myself.moveToFirst();
             MyAva = Myself.getString(Myself.getColumnIndex(SQLiteHelper.PROFILE_COLUMN_AVATAR));
+
+            if(MyAva == null){
+
+                Bitmap bMapScaled = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.defaultavatar), 120, 120, true);
+                ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
+                bMapScaled.compress(Bitmap.CompressFormat.PNG,0,BAOS);
+                byte[] encodedImg = BAOS.toByteArray();
+                MyAva = Base64.encodeToString(encodedImg, Base64.NO_WRAP);
+
+                database.setAvatar(MyAva);
+            }
 
             ByteArrayInputStream BAIS = new ByteArrayInputStream( Base64.decode(MyAva, Base64.DEFAULT) );
 

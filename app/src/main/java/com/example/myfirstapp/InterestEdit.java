@@ -37,7 +37,7 @@ public class InterestEdit extends AppCompatActivity {
 
     JSONParser jParser = new JSONParser();
 
-    private static String url_update_interest = "http://191.189.96.55:54321/android/db_update_interest.php";
+    private static String url_update_interest = "http://lasdpc.icmc.usp.br:54321/android/db_update_interest.php";
     private static final String TAG_SUCCESS = "success";
 
     @Override
